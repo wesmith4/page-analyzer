@@ -22,6 +22,9 @@ input_url = st.text_input(
 
 # Validate the URL
 if input_url and is_url(input_url):
+    # Set the URL as a query parameter
+    st.experimental_set_query_params(url=input_url)
+
     # Parse the URL
     parsed_url = urlparse(input_url)
 
