@@ -7,7 +7,7 @@ from wordcloud import WordCloud, STOPWORDS
 from spacy import load
 
 # Load the spaCy model
-nlp = load("en_core_web_sm")
+nlp = load("./models/en_core_web_sm/")
 
 
 class PageMetaData(TypedDict):
@@ -62,7 +62,7 @@ class Page:
             {"type": "application/ld+json"}
         )
 
-        schema_objects = list(map(
+        schema_objects: list[dict] = list(map(
             lambda tag: json.loads(tag.text),
             schema_script_tags
         ))
@@ -72,7 +72,7 @@ class Page:
     def get_schema_object_from_tag(self, tag: Tag) -> dict:
         return json.loads(tag.text)
 
-    def get_wordcloud(self):
+    def get_wordcloud(self) -> WordCloud:
         paragraphs = list(map(lambda tag: tag.text, self.soup.find_all("p")))
         text = " ".join(paragraphs)
 
